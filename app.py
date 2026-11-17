@@ -5,16 +5,12 @@ import matplotlib.pyplot as plt
 from data import load_reviews
 from analysis import analyze_reviews, analyze_single_review
 
-
-# Configuração da página
 st.set_page_config(
     page_title="ReviewLens",
     page_icon="🔎",
     layout="wide"
 )
 
-
-# Estilo e título
 st.title("🔎 ReviewLens")
 st.subheader("Análise inteligente de avaliações de clientes")
 
@@ -25,13 +21,9 @@ st.write(
 
 st.divider()
 
-
-# Carregar e analisar avaliações
 reviews = load_reviews()
 results = analyze_reviews(reviews)
 
-
-# Indicadores
 total = len(results)
 positive = (results["sentimento"] == "positivo").sum()
 negative = (results["sentimento"] == "negativo").sum()
@@ -44,22 +36,15 @@ col2.metric("😊 Positivas", positive)
 col3.metric("😞 Negativas", negative)
 col4.metric("😐 Neutras", neutral)
 
-
 st.divider()
 
-
-# Gráfico de sentimentos
 st.subheader("📊 Distribuição de sentimentos")
 
 sentiment_counts = results["sentimento"].value_counts()
 
 fig, ax = plt.subplots()
 
-ax.bar(
-    sentiment_counts.index,
-    sentiment_counts.values
-)
-
+ax.bar(sentiment_counts.index, sentiment_counts.values)
 ax.set_xlabel("Sentimento")
 ax.set_ylabel("Quantidade")
 ax.set_title("Avaliações por sentimento")
@@ -67,11 +52,8 @@ ax.set_title("Avaliações por sentimento")
 st.pyplot(fig)
 plt.close(fig)
 
-
 st.divider()
 
-
-# Tabela de avaliações
 st.subheader("📝 Avaliações analisadas")
 
 st.dataframe(
@@ -80,11 +62,8 @@ st.dataframe(
     hide_index=True
 )
 
-
 st.divider()
 
-
-# Análise individual
 st.subheader("🔍 Analise uma avaliação")
 
 comment = st.text_area(
@@ -105,8 +84,7 @@ if st.button("Analisar comentário"):
     else:
         st.warning("Digite um comentário antes de analisar.")
 
-
 st.caption(
-    "ReviewLens | Projeto educacional de análise de sentimentos "
-    "com Machine Learning."
+    "ReviewLens | Projeto educacional de análise de sentimentos com Machine Learning."
 )
+
